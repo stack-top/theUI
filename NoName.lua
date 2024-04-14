@@ -62,60 +62,6 @@ MongKuiAreRai[7].TextXAlignment = Enum.TextXAlignment.Left
 MongKuiAreRai[8].Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(177, 177, 177))}
 MongKuiAreRai[8].Rotation = -90
 MongKuiAreRai[8].Parent = MongKuiAreRai[7]
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
-local LocalPlayer = game:GetService("Players").LocalPlayer
-local Mouse = LocalPlayer:GetMouse()
-function dragify(Frame, object)
-    dragToggle = nil
-    dragSpeed = .25
-    dragInput = nil
-    dragStart = nil
-    dragPos = nil
-    function updateInput(input)
-        Delta = input.Position - dragStart
-        Position =
-            UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
-        game:GetService("TweenService"):Create(object, TweenInfo.new(dragSpeed), {Position = Position}):Play()
-    end
-    Frame.InputBegan:Connect(
-        function(input)
-            if
-                (input.UserInputType == Enum.UserInputType.MouseButton1 or
-                    input.UserInputType == Enum.UserInputType.Touch)
-            then
-                dragToggle = true
-                dragStart = input.Position
-                startPos = object.Position
-                input.Changed:Connect(
-                    function()
-                        if (input.UserInputState == Enum.UserInputState.End) then
-                            dragToggle = false
-                        end
-                    end
-                )
-            end
-        end
-    )
-    Frame.InputChanged:Connect(
-        function(input)
-            if
-                (input.UserInputType == Enum.UserInputType.MouseMovement or
-                    input.UserInputType == Enum.UserInputType.Touch)
-            then
-                dragInput = input
-            end
-        end
-    )
-    game:GetService("UserInputService").InputChanged:Connect(
-    function(input)
-        if (input == dragInput and dragToggle) then
-            updateInput(input)
-        end
-    end
-    )
-end;dragify(MongKuiAreRai[2],MongKuiAreRai[2])
 __Stack.ai["Send"] = function(...)
     local message = ({...})[1]
     MongKuiAreRai[5].Text = tostring(message)
