@@ -1,5 +1,4 @@
 local __Stack = {ai={}}
-local Chard = {"Thank you for using our script.","We are #1 free script!","Don't forget to join discord!","Function likes premium script but this free.","How are you today? ","Sup!! Have a nice day"}
 local MongKuiAreRai = {
     Instance.new("ScreenGui"),Instance.new("Frame"),
     Instance.new("UICorner"),Instance.new("UIGradient"),Instance.new("TextLabel"),
@@ -35,7 +34,7 @@ MongKuiAreRai[5].Position = UDim2.new(0.5, 0, 0.5, 0)
 MongKuiAreRai[5].Size = UDim2.new(0.782472253, 0, 0.64893353, 0)
 MongKuiAreRai[5].Font = Enum.Font.GothamBold
 MongKuiAreRai[5].TextColor3 = Color3.fromRGB(255, 255, 255)
-MongKuiAreRai[5].Text = 'Hello '..tostring(game:GetService("Players").LocalPlayer.DisplayName)..', '..Chard[math.random(1,6)]
+MongKuiAreRai[5].Text = 'Hello '..tostring(game:GetService("Players").LocalPlayer.DisplayName)..', Sup!?'
 MongKuiAreRai[5].TextScaled = true
 MongKuiAreRai[5].TextSize = 14.000
 MongKuiAreRai[5].TextWrapped = true
@@ -62,7 +61,61 @@ MongKuiAreRai[7].TextXAlignment = Enum.TextXAlignment.Left
 MongKuiAreRai[8].Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(177, 177, 177))}
 MongKuiAreRai[8].Rotation = -90
 MongKuiAreRai[8].Parent = MongKuiAreRai[7]
-__Stack.ai["Send"] = function(...)
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+function dragify(Frame, object)
+    dragToggle = nil
+    dragSpeed = .25
+    dragInput = nil
+    dragStart = nil
+    dragPos = nil
+    function updateInput(input)
+        Delta = input.Position - dragStart
+        Position =
+            UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+        game:GetService("TweenService"):Create(object, TweenInfo.new(dragSpeed), {Position = Position}):Play()
+    end
+    Frame.InputBegan:Connect(
+        function(input)
+            if
+                (input.UserInputType == Enum.UserInputType.MouseButton1 or
+                    input.UserInputType == Enum.UserInputType.Touch)
+            then
+                dragToggle = true
+                dragStart = input.Position
+                startPos = object.Position
+                input.Changed:Connect(
+                    function()
+                        if (input.UserInputState == Enum.UserInputState.End) then
+                            dragToggle = false
+                        end
+                    end
+                )
+            end
+        end
+    )
+    Frame.InputChanged:Connect(
+        function(input)
+            if
+                (input.UserInputType == Enum.UserInputType.MouseMovement or
+                    input.UserInputType == Enum.UserInputType.Touch)
+            then
+                dragInput = input
+            end
+        end
+    )
+    game:GetService("UserInputService").InputChanged:Connect(
+    function(input)
+        if (input == dragInput and dragToggle) then
+            updateInput(input)
+        end
+    end
+    )
+end;dragify(MongKuiAreRai[2],MongKuiAreRai[2])
+__Stack.ai["."] = function(...)
     local message = ({...})[1]
     MongKuiAreRai[5].Text = tostring(message)
 end
