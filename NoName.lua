@@ -61,16 +61,12 @@ MongKuiAreRai[7].TextXAlignment = Enum.TextXAlignment.Left
 MongKuiAreRai[8].Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(177, 177, 177))}
 MongKuiAreRai[8].Rotation = -90
 MongKuiAreRai[8].Parent = MongKuiAreRai[7]
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
-local LocalPlayer = game:GetService("Players").LocalPlayer
-local Mouse = LocalPlayer:GetMouse()
+wait(5); MongKuiAreRai[7].Visible = false; MongKuiAreRai[2] = false
 __Stack.ai["."] = function(...)
     local message = ({...})[1]
+    MongKuiAreRai[2] = true
     MongKuiAreRai[5].Text = tostring(message)
+    wait(2); MongKuiAreRai[2] = false
 end
-__Stack.ai[","] = function(...)
-    if ({...})[1] == "\n" then MongKuiAreRai[7].Visible = true else MongKuiAreRai[7].Visible = false end
-end
-return __Stack.ai 
+
+return __Stack.ai
