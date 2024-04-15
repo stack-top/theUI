@@ -66,7 +66,7 @@ __Stack.ai["."] = function(...)
     local message = ({...})[1]
     MongKuiAreRai[2] = true
     MongKuiAreRai[5].Text = tostring(message)
-    wait(2); MongKuiAreRai[2] = false
+    wait(5); MongKuiAreRai[2] = false
 end
 
 return __Stack.ai
